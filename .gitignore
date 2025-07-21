@@ -1,0 +1,11 @@
+# Arquivos temporários da Godot
+.import/
+.godot/
+.export/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Build
+build/
