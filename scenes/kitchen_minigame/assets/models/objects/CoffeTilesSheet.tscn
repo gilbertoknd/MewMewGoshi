@@ -1,14 +1,14 @@
-[gd_scene load_steps=41 format=4 uid="uid://dydmx6j3dtjgi"]
+[gd_scene load_steps=43 format=4 uid="uid://dydmx6j3dtjgi"]
 
-[ext_resource type="Texture2D" uid="uid://b8fyamb8ubav2" path="res://assets/models/objects/tiles/cutting_board_0.png" id="1_d5xft"]
-[ext_resource type="Texture2D" uid="uid://bmw6hk0vofs8k" path="res://assets/models/objects/tiles/balcon_0.png" id="1_x8typ"]
-[ext_resource type="Texture2D" uid="uid://dko3fcesnirag" path="res://assets/models/objects/tiles/Base_floor_0.png" id="1_x73ya"]
-[ext_resource type="Texture2D" uid="uid://td4pewmm6nu6" path="res://assets/models/objects/tiles/wood_floor_0.png" id="2_04npo"]
-[ext_resource type="Texture2D" uid="uid://bmfln18g8autx" path="res://assets/models/objects/tiles/plant_pot_0.png" id="2_7urji"]
-[ext_resource type="Texture2D" uid="uid://jj7qs06q4ca2" path="res://assets/models/objects/tiles/table_pink_0.png" id="3_04npo"]
-[ext_resource type="Texture2D" uid="uid://flijki3sclhv" path="res://assets/models/objects/tiles/plant_pot_1.png" id="3_d5xft"]
-[ext_resource type="Texture2D" uid="uid://dluvhl2pf3vpf" path="res://assets/models/objects/tiles/brick_wall_0.png" id="8_uqt5w"]
-[ext_resource type="Texture2D" uid="uid://cg5dwh12f3chm" path="res://assets/models/objects/tiles/sink_0.png" id="9_uqt5w"]
+[ext_resource type="Texture2D" uid="uid://b8fyamb8ubav2" path="res://scenes/kitchen_minigame/assets/models/objects/tiles/cutting_board_0.png" id="1_d5xft"]
+[ext_resource type="Texture2D" uid="uid://bmw6hk0vofs8k" path="res://scenes/kitchen_minigame/assets/models/objects/tiles/balcon_0.png" id="1_x8typ"]
+[ext_resource type="Texture2D" uid="uid://dko3fcesnirag" path="res://scenes/kitchen_minigame/assets/models/objects/tiles/Base_floor_0.png" id="1_x73ya"]
+[ext_resource type="Texture2D" uid="uid://td4pewmm6nu6" path="res://scenes/kitchen_minigame/assets/models/objects/tiles/wood_floor_0.png" id="2_04npo"]
+[ext_resource type="Texture2D" uid="uid://bmfln18g8autx" path="res://scenes/kitchen_minigame/assets/models/objects/tiles/plant_pot_0.png" id="2_7urji"]
+[ext_resource type="Texture2D" uid="uid://jj7qs06q4ca2" path="res://scenes/kitchen_minigame/assets/models/objects/tiles/table_pink_0.png" id="3_04npo"]
+[ext_resource type="Texture2D" uid="uid://flijki3sclhv" path="res://scenes/kitchen_minigame/assets/models/objects/tiles/plant_pot_1.png" id="3_d5xft"]
+[ext_resource type="Texture2D" uid="uid://dluvhl2pf3vpf" path="res://scenes/kitchen_minigame/assets/models/objects/tiles/brick_wall_0.png" id="8_uqt5w"]
+[ext_resource type="Texture2D" uid="uid://cg5dwh12f3chm" path="res://scenes/kitchen_minigame/assets/models/objects/tiles/sink_0.png" id="9_uqt5w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a2tmj"]
 resource_name = "material_0"
@@ -357,6 +357,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_rpe13")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_2m826"]
+size = Vector3(1, 0.555542, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ykrxa"]
 resource_name = "material_0"
 transparency = 2
@@ -399,9 +402,13 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_lkf5i")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_lwgjj"]
+size = Vector3(1, 0.575317, 1)
+
 [node name="Spatial" type="Node3D"]
 
 [node name="balcony" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("ArrayMesh_7urji")
 skeleton = NodePath("")
 
@@ -412,6 +419,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.275864, 0)
 shape = SubResource("BoxShape3D_x8typ")
 
 [node name="pot" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("ArrayMesh_uqt5w")
 skeleton = NodePath("")
 
@@ -422,6 +430,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.560242, 0)
 shape = SubResource("CylinderShape3D_7anpm")
 
 [node name="base_floor" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("ArrayMesh_5xr6c")
 skeleton = NodePath("")
 
@@ -432,6 +441,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.250273, 0)
 shape = SubResource("BoxShape3D_fybyi")
 
 [node name="wood_floor" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("ArrayMesh_muyi8")
 skeleton = NodePath("")
 
@@ -443,6 +453,7 @@ shape = SubResource("BoxShape3D_1q4pi")
 
 [node name="table_pink" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.63125, 0)
+visible = false
 mesh = SubResource("ArrayMesh_xb4xi")
 skeleton = NodePath("")
 
@@ -453,6 +464,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.31485, 0)
 shape = SubResource("BoxShape3D_c2bh3")
 
 [node name="brick_wall" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("ArrayMesh_t3xpt")
 skeleton = NodePath("")
 
@@ -466,7 +478,19 @@ shape = SubResource("BoxShape3D_esb6t")
 mesh = SubResource("ArrayMesh_d5xft")
 skeleton = NodePath("")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="board"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="board/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.277771, 0)
+shape = SubResource("BoxShape3D_2m826")
+
 [node name="sink" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.40115e-18, 0, 0)
 mesh = SubResource("ArrayMesh_7anpm")
 skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="sink"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="sink/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.296833, 0)
+shape = SubResource("BoxShape3D_lwgjj")
