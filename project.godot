@@ -13,7 +13,7 @@ config_version=5
 config/name="MewMewGoshi"
 config/description="Projeto de jogo no estilo tamagoshi para o Mew Mew Maid Café em Natal - RN"
 run/main_scene="uid://bjr8uyemgbufm"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://cr7bmlmd1vydt"
 
 [autoload]
