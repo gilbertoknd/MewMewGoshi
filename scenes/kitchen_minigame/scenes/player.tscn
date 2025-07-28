@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://6tn6w2ag2hdn"]
 
-[ext_resource type="Script" uid="uid://ukdgr7cbvmo3" path="res://scenes/kitchen_minigame/scripts/character_body_3d.gd" id="1_bvqkk"]
+[ext_resource type="Script" uid="uid://ukdgr7cbvmo3" path="res://scenes/kitchen_minigame/scripts/player.gd" id="1_bvqkk"]
 [ext_resource type="Texture2D" uid="uid://cid3c6f8mguft" path="res://scenes/kitchen_minigame/assets/sprites/maid_sheet.png" id="2_aedsk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_35ak6"]

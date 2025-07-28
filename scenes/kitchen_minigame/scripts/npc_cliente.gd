@@ -11,7 +11,7 @@ var skins = [
 
 #Substituir por sprites (path)
 var cardapio = [
-	"Café", 
+	"Cafe", 
 	"Bolo", 
 	"Sorvete"
 	]
