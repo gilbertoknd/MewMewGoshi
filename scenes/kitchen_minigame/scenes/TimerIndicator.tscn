@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://6t66dv637o24"]
+
+[ext_resource type="Texture2D" uid="uid://dpenobdlrnk4n" path="res://scenes/kitchen_minigame/assets/sprites/timer circle.png" id="1_gubaj"]
+
+[node name="TextureProgressBar" type="TextureProgressBar"]
+offset_right = 40.0
+offset_bottom = 40.0
+fill_mode = 5
+texture_progress = ExtResource("1_gubaj")
