@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://chw2og4pcnql1"]
 
 [ext_resource type="Script" uid="uid://blrxhcvja4eau" path="res://scenes/kitchen_minigame/scripts/npc_cliente.gd" id="1_01fmr"]
-[ext_resource type="SpriteFrames" uid="uid://bmq4nnwhmj7jm" path="res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente.tres" id="2_kgeto"]
+[ext_resource type="SpriteFrames" uid="uid://bmq4nnwhmj7jm" path="res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente_01.tres" id="2_kgeto"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vx8i"]
 radius = 0.345
@@ -16,8 +16,6 @@ billboard = 1
 texture_filter = 0
 sprite_frames = ExtResource("2_kgeto")
 animation = &"walking_down"
-
-[node name="NpcNavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="NpcCollisionShape3d" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_3vx8i")

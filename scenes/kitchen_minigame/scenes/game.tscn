@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ca62jokaqvuk5"]
+[gd_scene load_steps=5 format=3 uid="uid://ca62jokaqvuk5"]
 
 [ext_resource type="PackedScene" uid="uid://cjgjgowfj7h5v" path="res://scenes/kitchen_minigame/scenes/base_map.tscn" id="1_1c3x3"]
 [ext_resource type="PackedScene" uid="uid://6tn6w2ag2hdn" path="res://scenes/kitchen_minigame/scenes/player.tscn" id="2_tlw38"]
 [ext_resource type="PackedScene" uid="uid://cchm2m8cpboxa" path="res://scenes/kitchen_minigame/scenes/timergenerator.tscn" id="3_tlw38"]
+[ext_resource type="PackedScene" uid="uid://chw2og4pcnql1" path="res://scenes/kitchen_minigame/scenes/npc_cliente.tscn" id="4_pf8re"]
 
 [node name="game" type="Node3D"]
 
@@ -23,3 +24,5 @@ total_time = 7.0
 [node name="TimereGenerator" parent="." instance=ExtResource("3_tlw38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8649, 2.62606, 1.61369)
 total_time = 10.0
+
+[node name="NpcCliente" parent="." instance=ExtResource("4_pf8re")]
