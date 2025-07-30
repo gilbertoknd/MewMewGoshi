@@ -2,11 +2,11 @@ extends CharacterBody3D
 
 @onready var sprite_visual = $NpcSprite3D
 @onready var pedido_icon = $NpcIconPedidoSprite3D
-@onready var nav_agent = $NpcNavigationAgent3D
 
 #Skins aleatorias para os clientes, salvar em .tres para usar as animacoes
 var skins = [
-	preload("res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente.tres")
+	preload("res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente_01.tres")
+	#preload("res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente_02.tres")
 ]
 
 #Substituir por sprites (path)
@@ -16,23 +16,65 @@ var cardapio = [
 	"Sorvete"
 	]
 
+var posicoes_mesas: Dictionary = {
+	Vector3(-5, 1, -2) : 0,
+	Vector3(-2, 1, -4) : 0,
+	Vector3(1, 1, -4) : 0,
+	Vector3(4, 1, -3) : 0
+}
+
+var mesa_selecionada : Vector3
 var pedido_atual: Texture
 
 func _ready() -> void:
-	gerar_pedido()
+	global_position = Vector3(1, 1, -4)
+	
+	#Porta (9, -4)
+	
+	#Assentos, da esquerda para a direita
+	#(-5, -2) Assento 1
+	#(-2, -4) Assento 2
+	#(1, -4) Assento 3
+	#(4, -3) Assento 4
+	
+	#Mesas na mesma ordem
+	#(-5, -3) Mesa 1
+	#(-2, -3) e (-1, -3) Mesa 2
+	#(2, -3) e (2, -4) Mesa 3
+	#(5, -3) Mesa 4
+	
+	#Saindo da porta (9, -4)
+	#Pathing para o assento 1
+	#Para (1, -4) : Caminhar até (4, -4) depois (4, -5) depois (-2, -5) depois (-4, -5) e (-4, -3), 
+	#Direction (-4, -3) - (-5, -3) = (-1, 0) virar para a esquerda 
+	
+	#Pathing para o assento 2
+	#Para (1, -4) : Caminhar até (4, -4) depois (4, -5) depois (-2, -5) e (-2, -4)
+	#Direction (-2, -4) - (-2, -3) = (0, -1) virar para baixo
+	
+	#Pathing para o assento 3
+	#Para (1, -4) : Caminhar até (4, -4) depois (4, -5) depois (1, -5) e (1, -4)
+	#Direction (1, -4) - (2, -4) = (-1, 0) virar para a esquerda
+	
+	#Pathing para o assento 4
+	#Para (4, -3) : Caminhar até (4, -4) depois (4, -3)
+	#Direction (4, -3) - (5, -3) = (1, 0) virar para direita
+
+	
+
+	
+	#gerar_pedido()
 	aplicar_skin_aleatoria()
-	mover_ate_o_balcao()
 	
 #Aleatorizando skin para o cliente	
 func aplicar_skin_aleatoria():
 	var skin_path = skins[randi() % skins.size()]
-	var new_skin = load(skin_path).instantiate()
+	sprite_visual = skin_path
 	
-func mover_ate_o_balcao():
-	var ponto_balcao = get_node_or_null("/root/game/mapa") #Inserir node com o ponto do balcao e referenciar aqui
-	if ponto_balcao:
-		nav_agent.target_position = ponto_balcao.global_transform.origin
-		
+func checar_mesa_vazia():
+	var mesa_selecionada = posicoes_mesas[randi() % posicoes_mesas.size()]
+	
+	
 #Aleatorizando pedido dentro do vetor do cardapio, no script glogal GameManager
 func gerar_pedido():
 	var pedido_atual = load(cardapio[randi() % cardapio.size()])
@@ -41,21 +83,22 @@ func mostrar_pedido():
 	pedido_icon.texture = pedido_atual
 	pedido_icon.visible = true
 	pedido_icon.billiboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
-			
+	
 func _physics_process(delta: float) -> void:
-	if nav_agent.is_navigation_finished():
+	var direction = (mesa_selecionada - global_transform.origin)
+	direction.y = 1
+	
+	if global_position == mesa_selecionada:
 		sprite_visual.play("idle_down")
 		mostrar_pedido()
+	
 	else:
-		var dir = nav_agent.get_next_path_position() - global_transform.origin
-		dir.y = 0 #altura sempre a msm
-		dir = dir.normalized()
-		
-		#Mudar a direcao do sprite, mudando animacao
-		if abs(dir.x) > abs(dir.z):
-			if dir.x > 0: "walking_right"
-			else: "walking_left"
-		else:
-			if dir.z > 0: "walking_up"
-			else: "walking_down"
-			
+		move_and_slide()
+
+	#Mudar a direcao do sprite, mudando animacao
+	if abs(direction.x) > abs(direction.z):
+		if direction.x > 0: "walking_right"
+		else: "walking_left"
+	else:
+		if direction.z > 0: "walking_up"
+		else: "walking_down"
