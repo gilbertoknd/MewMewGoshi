@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://d28ohkda67xvi"]
+
+[ext_resource type="Script" uid="uid://cjmx0cnwk0376" path="res://scenes/kitchen_minigame/scripts/moving_food.gd" id="1_i6m71"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qylw7"]
+
+[node name="Moving food" type="Node3D"]
+script = ExtResource("1_i6m71")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.03
+billboard = 1
+texture_filter = 0
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+shape = SubResource("BoxShape3D_qylw7")

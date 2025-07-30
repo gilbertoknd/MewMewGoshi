@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbl271wxdnu5u"]
+
+[ext_resource type="Texture2D" uid="uid://b6icyurpssfr" path="res://scenes/kitchen_minigame/assets/sprites/light.png" id="1_65tlj"]
+
+[node name="Light" type="Sprite3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+texture_filter = 0
+texture = ExtResource("1_65tlj")
