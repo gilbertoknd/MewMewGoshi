@@ -1,11 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://ca62jokaqvuk5"]
+[gd_scene load_steps=7 format=3 uid="uid://ca62jokaqvuk5"]
 
 [ext_resource type="PackedScene" uid="uid://cjgjgowfj7h5v" path="res://scenes/kitchen_minigame/scenes/base_map.tscn" id="1_1c3x3"]
+[ext_resource type="PackedScene" uid="uid://bbl271wxdnu5u" path="res://scenes/kitchen_minigame/scenes/3dDeco/light.tscn" id="1_rnyj2"]
 [ext_resource type="PackedScene" uid="uid://6tn6w2ag2hdn" path="res://scenes/kitchen_minigame/scenes/player.tscn" id="2_tlw38"]
 [ext_resource type="PackedScene" uid="uid://cchm2m8cpboxa" path="res://scenes/kitchen_minigame/scenes/timergenerator.tscn" id="3_tlw38"]
 [ext_resource type="PackedScene" uid="uid://chw2og4pcnql1" path="res://scenes/kitchen_minigame/scenes/npc_cliente.tscn" id="4_pf8re"]
+[ext_resource type="PackedScene" uid="uid://d28ohkda67xvi" path="res://scenes/kitchen_minigame/scenes/moving_food.tscn" id="5_836a8"]
 
 [node name="game" type="Node3D"]
+
+[node name="light" type="Node" parent="."]
+
+[node name="Light" parent="light" instance=ExtResource("1_rnyj2")]
+transform = Transform3D(3.19845, 0, 0, 0, -2.86202e-07, -1, 0, 6.54753, -4.37114e-08, 7.60411, 0.584982, -3.03848)
+
+[node name="esteira_L1" parent="light" instance=ExtResource("1_rnyj2")]
+transform = Transform3D(1.65, 0, 0, 0, -1.63961e-07, -1.1, 0, 3.751, -4.80825e-08, 6.98282, 1.1, 6.4408)
+
+[node name="esteira_L2" parent="light" instance=ExtResource("1_rnyj2")]
+transform = Transform3D(-1.65, -3.27923e-07, 4.20351e-15, 0, -1.63961e-07, -1.1, 1.44248e-07, -3.751, 4.80825e-08, -6.96255, 1.1, 6.4408)
 
 [node name="mapa" parent="." instance=ExtResource("1_1c3x3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
@@ -26,3 +39,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8649, 2.62606, 1.61369)
 total_time = 10.0
 
 [node name="NpcCliente" parent="." instance=ExtResource("4_pf8re")]
+
+[node name="Moving food" parent="." instance=ExtResource("5_836a8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.05134, 1.37078, 3.59916)

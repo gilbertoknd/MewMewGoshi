@@ -20,6 +20,7 @@ config/icon="uid://cr7bmlmd1vydt"
 
 GameManager="*res://scripts/core/GameManager.gd"
 SaveManager="*res://scripts/core/SaveManager.gd"
+FoodDatabase="*res://scenes/kitchen_minigame/scripts/food_data.gd"
 
 [display]
 
