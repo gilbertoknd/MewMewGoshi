@@ -12,7 +12,7 @@
 [node name="light" type="Node" parent="."]
 
 [node name="Light" parent="light" instance=ExtResource("1_rnyj2")]
-transform = Transform3D(3.19845, 0, 0, 0, -2.86202e-07, -1, 0, 6.54753, -4.37114e-08, 7.60411, 0.584982, -3.03848)
+transform = Transform3D(3.19845, 0, 0, 0, -2.86202e-07, -1, 0, 6.54753, -4.37114e-08, 8.47143, 0.584982, -3.52032)
 
 [node name="esteira_L1" parent="light" instance=ExtResource("1_rnyj2")]
 transform = Transform3D(1.65, 0, 0, 0, -1.63961e-07, -1.1, 0, 3.751, -4.80825e-08, 6.98282, 1.1, 6.4408)
