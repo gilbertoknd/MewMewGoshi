@@ -164,7 +164,7 @@ func virar_para_mesa():
 	elif direcao == Vector2.DOWN:
 		$NpcSprite3D.animation = "walking_down"
 		$NpcSprite3D.frame = 0
-		$NpcSprite3D.playing = false
+		$NpcSprite3D.stop()
 		
 	else:
 		print("Direção inesperada:", direcao)

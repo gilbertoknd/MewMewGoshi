@@ -1,24 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://ca62jokaqvuk5"]
+[gd_scene load_steps=8 format=3 uid="uid://ca62jokaqvuk5"]
 
 [ext_resource type="PackedScene" uid="uid://cjgjgowfj7h5v" path="res://scenes/kitchen_minigame/scenes/base_map.tscn" id="1_1c3x3"]
 [ext_resource type="PackedScene" uid="uid://bbl271wxdnu5u" path="res://scenes/kitchen_minigame/scenes/3dDeco/light.tscn" id="1_rnyj2"]
 [ext_resource type="PackedScene" uid="uid://6tn6w2ag2hdn" path="res://scenes/kitchen_minigame/scenes/player.tscn" id="2_tlw38"]
 [ext_resource type="PackedScene" uid="uid://cchm2m8cpboxa" path="res://scenes/kitchen_minigame/scenes/timergenerator.tscn" id="3_tlw38"]
 [ext_resource type="PackedScene" uid="uid://chw2og4pcnql1" path="res://scenes/kitchen_minigame/scenes/npc_cliente.tscn" id="4_pf8re"]
-[ext_resource type="PackedScene" uid="uid://d28ohkda67xvi" path="res://scenes/kitchen_minigame/scenes/moving_food.tscn" id="5_836a8"]
+[ext_resource type="PackedScene" uid="uid://b6vchbtlwo466" path="res://scenes/kitchen_minigame/scenes/food_generator.tscn" id="6_rnyj2"]
+[ext_resource type="PackedScene" uid="uid://dmbfyf0qrjy6g" path="res://scenes/kitchen_minigame/scenes/3dDeco/converyerbelt.tscn" id="7_yinvk"]
 
 [node name="game" type="Node3D"]
 
 [node name="light" type="Node" parent="."]
 
 [node name="Light" parent="light" instance=ExtResource("1_rnyj2")]
-transform = Transform3D(3.19845, 0, 0, 0, -2.86202e-07, -1, 0, 6.54753, -4.37114e-08, 8.47143, 0.584982, -3.52032)
+transform = Transform3D(3.19845, 0, 0, 0, -4.29303e-07, -1, 0, 9.82129, -4.37114e-08, 8.47143, 0.584982, -3.52032)
 
 [node name="esteira_L1" parent="light" instance=ExtResource("1_rnyj2")]
-transform = Transform3D(1.65, 0, 0, 0, -1.63961e-07, -1.1, 0, 3.751, -4.80825e-08, 6.98282, 1.1, 6.4408)
+transform = Transform3D(1.7325, 0, 0, 0, -1.31169e-07, -1.1, 0, 3.0008, -4.80825e-08, 7.31655, 1.30472, 6.54074)
 
 [node name="esteira_L2" parent="light" instance=ExtResource("1_rnyj2")]
-transform = Transform3D(-1.65, -3.27923e-07, 4.20351e-15, 0, -1.63961e-07, -1.1, 1.44248e-07, -3.751, 4.80825e-08, -6.96255, 1.1, 6.4408)
+transform = Transform3D(-1.7325, -2.62338e-07, 4.20351e-15, 0, -1.31169e-07, -1.1, 1.5146e-07, -3.0008, 4.80825e-08, -7.32609, 1.30472, 6.54074)
 
 [node name="mapa" parent="." instance=ExtResource("1_1c3x3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
@@ -40,5 +41,87 @@ total_time = 10.0
 
 [node name="NpcCliente" parent="." instance=ExtResource("4_pf8re")]
 
-[node name="Moving food" parent="." instance=ExtResource("5_836a8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.05134, 1.37078, 3.59916)
+[node name="Food_Generator" parent="." instance=ExtResource("6_rnyj2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.46667, 1.47875, 6.52357)
+
+[node name="conveyerbelt" type="Node" parent="."]
+
+[node name="Converyerbelt" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 7.1326, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt2" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6.2326, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt3" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 5.3326, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt4" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4.38869, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt5" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.42336, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt6" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.48478, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt7" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.55627, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt8" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.585086, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt9" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.377188, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt10" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.34837, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt11" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.31956, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt12" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -3.29074, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt13" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -4.26192, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt14" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -5.23311, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt15" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -6.20429, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
+
+[node name="Converyerbelt16" parent="conveyerbelt" instance=ExtResource("7_yinvk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -7.18438, 1.15307, 6.52869)
+pixel_size = 0.03
+frame_progress = 0.719858
