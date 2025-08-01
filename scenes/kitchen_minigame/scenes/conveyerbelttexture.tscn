@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://dv3y4ovdaytxo"]
+
+[ext_resource type="Texture2D" uid="uid://cagm7f10di5sp" path="res://scenes/kitchen_minigame/assets/sprites/conveyerbelt.png" id="1_a3vs7"]
+[ext_resource type="Script" uid="uid://bhuoh5oe42xs" path="res://scenes/kitchen_minigame/scenes/food coveyer belt/conveyerbelttexture.gd" id="2_x7vgk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7vgk"]
+atlas = ExtResource("1_a3vs7")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6170"]
+atlas = ExtResource("1_a3vs7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gv5t"]
+atlas = ExtResource("1_a3vs7")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4wlt"]
+atlas = ExtResource("1_a3vs7")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fyf6v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x7vgk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6170")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gv5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b4wlt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+script = ExtResource("2_x7vgk")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_fyf6v")
+frame_progress = 0.271648
