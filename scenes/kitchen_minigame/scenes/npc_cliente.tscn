@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://chw2og4pcnql1"]
+[gd_scene load_steps=5 format=3 uid="uid://chw2og4pcnql1"]
 
 [ext_resource type="Script" uid="uid://blrxhcvja4eau" path="res://scenes/kitchen_minigame/scripts/npc_cliente.gd" id="1_01fmr"]
 [ext_resource type="SpriteFrames" uid="uid://bmq4nnwhmj7jm" path="res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente_01.tres" id="2_kgeto"]
+[ext_resource type="Texture2D" uid="uid://si6obxxxsdru" path="res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_yellow.png" id="3_5gka5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vx8i"]
 radius = 0.345
@@ -9,6 +10,7 @@ height = 0.7
 
 [node name="NpcCliente" type="CharacterBody3D"]
 script = ExtResource("1_01fmr")
+velocidade = 10.0
 
 [node name="NpcSprite3D" type="AnimatedSprite3D" parent="."]
 pixel_size = 0.05
@@ -30,3 +32,6 @@ text = "Mariana"
 font_size = 14
 
 [node name="NpcIconPedido" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.594175, 0)
+visible = false
+texture = ExtResource("3_5gka5")
