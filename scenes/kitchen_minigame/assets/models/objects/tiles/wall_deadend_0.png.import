@@ -2,16 +2,19 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cf58das2olo68"
-path="res://.godot/imported/maid_holding_sheet.png-174dcbeb312da433290c3fdf29df324b.ctex"
+uid="uid://iyss7a2p3t7t"
+path="res://.godot/imported/wall_deadend_0.png-688628e7efdbae6baa8dc5afae72be86.ctex"
 metadata={
 "vram_texture": false
+}
+generator_parameters={
+"md5": "c8154be419a9f12da9238afa36147a14"
 }
 
 [deps]
 
-source_file="res://scenes/kitchen_minigame/assets/sprites/maid_holding_sheet.png"
-dest_files=["res://.godot/imported/maid_holding_sheet.png-174dcbeb312da433290c3fdf29df324b.ctex"]
+source_file="res://scenes/kitchen_minigame/assets/models/objects/tiles/wall_deadend_0.png"
+dest_files=["res://.godot/imported/wall_deadend_0.png-688628e7efdbae6baa8dc5afae72be86.ctex"]
 
 [params]
 
