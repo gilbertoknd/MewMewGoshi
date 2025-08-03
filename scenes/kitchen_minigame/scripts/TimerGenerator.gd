@@ -2,7 +2,7 @@ extends Node3D
 
 @onready var progress_bar := $SubViewport/TextureProgressBar
 
-@export var total_time := 5.0
+@export var total_time := 20.0
 var time_left := 0.0
 
 func _ready():

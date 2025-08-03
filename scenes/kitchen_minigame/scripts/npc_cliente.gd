@@ -36,14 +36,17 @@ Direction (4, -3) - (5, -3) = (-1, 0) virar para direita
 '''
 
 @onready var sprite_visual = $NpcSprite3D
-@onready var pedido_icon = $NpcIconPedidoSprite3D
-
+@onready var pedido_icon = $NpcIconPedido
+@onready var NpcArea = $NpcArea
 @export var velocidade := 2.0
 
 var caminho_selecionado : Array
-var pedido_atual : Texture
+var pedido_atual : Dictionary
 var indice_atual := 0
 var mesa_selecionada : Vector3
+var spritePedido: Texture2D
+
+var satisfeito := false
 
 #Skins aleatorias para os clientes, salvar em .tres para usar as animacoes
 var skins = [
@@ -51,12 +54,6 @@ var skins = [
 	#preload("res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente_02.tres")
 ]
 
-#Substituir por sprites (path)
-var cardapio = [
-	"Cafe", 
-	"Bolo", 
-	"Sorvete"
-	]
 
 var caminhos_para_mesas: Dictionary = {
 	"assento_1": {
@@ -172,39 +169,56 @@ func virar_para_mesa():
 		
 #Aleatorizando pedido dentro do vetor do cardapio, no script glogal GameManager
 func gerar_pedido():
-	var pedido_atual = load(cardapio[randi() % cardapio.size()])
+	var keys = FoodData.DATA.keys()
+	randomize()
+	var chosen_key = keys[randi() % keys.size()]
+	var pedido = FoodData.DATA[chosen_key]
+	pedido_atual = pedido
+	spritePedido = pedido_atual["sprite"]
 
 func mostrar_pedido():
-	pedido_icon.texture = pedido_atual
-	pedido_icon.visible = true
-	pedido_icon.billiboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	if pedido_atual:
+		pedido_icon.texture = spritePedido
+		pedido_icon.visible = true
+
+func criar_timer_pedido():
+	var timer_scene = preload("res://scenes/kitchen_minigame/scenes/timergenerator.tscn") # Substitua pelo caminho correto
+	var timer_instance = timer_scene.instantiate()
+	add_child(timer_instance)
 	
+	# Opcional: posicione no NPC ou na mesa
+	timer_instance.global_position = global_position + Vector3(0, 2, 0)
+
+
 func _physics_process(delta: float) -> void:
-	if caminho_selecionado.is_empty() or indice_atual >= caminho_selecionado.size():
+	# Se ainda não terminou o caminho
+	if not caminho_selecionado.is_empty() and indice_atual < caminho_selecionado.size():
+		var destino = caminho_selecionado[indice_atual]
+		var direction = destino - global_transform.origin
+		direction.y = 0
+		if direction.length() > 0.1:
+			direction = direction.normalized()
+			velocity = direction * velocidade
+			move_and_slide()
+			# animação (como já estava)
+		else:
+			indice_atual += 1
+	else:
 		velocity = Vector3.ZERO
 		virar_para_mesa()
-		return
-	
-	var destino = caminho_selecionado[indice_atual]
-	var direction = destino - global_transform.origin
-	direction.y = 0  # manter no plano
 
-	if direction.length() > 0.1:
-		direction = direction.normalized()
-		velocity = direction * velocidade
-		move_and_slide()
-		
-		# Atualiza animação com base na direção
-		if abs(direction.x) > abs(direction.z):
-			if direction.x > 0:
-				$NpcSprite3D.play("walking_right")
-			else:
-				$NpcSprite3D.play("walking_left")
-		else:
-			if direction.z > 0:
-				$NpcSprite3D.play("walking_down")
-			else:
-				$NpcSprite3D.play("walking_up")
-				
-	else:
-		indice_atual += 1
+		if not pedido_atual:
+			gerar_pedido()
+			mostrar_pedido()
+			criar_timer_pedido()
+
+func entregar_pedido():
+	# Aqui pode fazer animação de agradecimento, som, pontuação etc.
+	# Esconde ícone do pedido
+	pedido_icon.visible = false
+	satisfeito= true
+	# Libera a mesa (se você rastreia ocupação em outro sistema, faça aqui também)
+	# Exemplo: marcar mesa como livre (se tiver controle centralizado de mesas)
+	
+	# Remove NPC
+	queue_free()

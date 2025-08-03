@@ -20,3 +20,6 @@ func _process(delta):
 	lifetime -= delta
 	if lifetime <= 0.0:
 		queue_free()
+
+func get_food_instance():
+	return food_instance

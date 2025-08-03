@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ca62jokaqvuk5"]
+[gd_scene load_steps=9 format=3 uid="uid://ca62jokaqvuk5"]
 
 [ext_resource type="PackedScene" uid="uid://cjgjgowfj7h5v" path="res://scenes/kitchen_minigame/scenes/base_map.tscn" id="1_1c3x3"]
 [ext_resource type="PackedScene" uid="uid://bbl271wxdnu5u" path="res://scenes/kitchen_minigame/scenes/3dDeco/light.tscn" id="1_rnyj2"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://chw2og4pcnql1" path="res://scenes/kitchen_minigame/scenes/npc_cliente.tscn" id="4_pf8re"]
 [ext_resource type="PackedScene" uid="uid://b6vchbtlwo466" path="res://scenes/kitchen_minigame/scenes/food_generator.tscn" id="6_rnyj2"]
 [ext_resource type="PackedScene" uid="uid://dmbfyf0qrjy6g" path="res://scenes/kitchen_minigame/scenes/3dDeco/converyerbelt.tscn" id="7_yinvk"]
+[ext_resource type="PackedScene" uid="uid://d28ohkda67xvi" path="res://scenes/kitchen_minigame/scenes/moving_food.tscn" id="8_fripu"]
 
 [node name="game" type="Node3D"]
 
@@ -16,10 +17,10 @@
 transform = Transform3D(3.19845, 0, 0, 0, -4.29303e-07, -1, 0, 9.82129, -4.37114e-08, 8.47143, 0.584982, -3.52032)
 
 [node name="esteira_L1" parent="light" instance=ExtResource("1_rnyj2")]
-transform = Transform3D(1.7325, 0, 0, 0, -1.31169e-07, -1.1, 0, 3.0008, -4.80825e-08, 7.31655, 1.30472, 6.54074)
+transform = Transform3D(1.7325, 0, 0, 0, -1.31169e-07, -1.1, 0, 3.0008, -4.80825e-08, 6.20795, 1.51542, 6.54074)
 
 [node name="esteira_L2" parent="light" instance=ExtResource("1_rnyj2")]
-transform = Transform3D(-1.7325, -2.62338e-07, 4.20351e-15, 0, -1.31169e-07, -1.1, 1.5146e-07, -3.0008, 4.80825e-08, -7.32609, 1.30472, 6.54074)
+transform = Transform3D(-1.7325, -2.62338e-07, 4.20351e-15, 0, -1.31169e-07, -1.1, 1.5146e-07, -3.0008, 4.80825e-08, -6.06409, 1.4664, 6.54074)
 
 [node name="mapa" parent="." instance=ExtResource("1_1c3x3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
@@ -125,3 +126,6 @@ frame_progress = 0.719858
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -7.18438, 1.15307, 6.52869)
 pixel_size = 0.03
 frame_progress = 0.719858
+
+[node name="Moving food" parent="." instance=ExtResource("8_fripu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90799, 1.16219, 3.8806)
