@@ -40,6 +40,12 @@ Direction (4, -3) - (5, -3) = (-1, 0) virar para direita
 @onready var NpcArea = $NpcArea
 @export var velocidade := 2.0
 
+@export var velocidade := 1.0
+@export var tempo_de_espera_pelo_atendimento := 4
+@export var tempo_de_espera_pelo_pedido := 6
+
+
+var estado := "indo_para_mesa"
 var caminho_selecionado : Array
 var pedido_atual : Dictionary
 var indice_atual := 0
@@ -47,6 +53,13 @@ var mesa_selecionada : Vector3
 var spritePedido: Texture2D
 
 var satisfeito := false
+var chegou_na_mesa := false
+#Timers
+var tempo_de_escolha: Timer
+var tempo_de_espera_atendimento: Timer
+var tempo_de_espera_pela_comida: Timer
+var segundo_inicial = 2
+var segundo_final = 6
 
 #Skins aleatorias para os clientes, salvar em .tres para usar as animacoes
 var skins = [
@@ -60,6 +73,7 @@ var caminhos_para_mesas: Dictionary = {
 		"mesa_coord": [Vector3(-5, 1, -3)],
 			
 		"path": [
+			Vector3(9, 1, -4),
 			Vector3(4, 1, -4),
 			Vector3(4, 1, -5),
 			Vector3(-2, 1, -5),
@@ -72,6 +86,7 @@ var caminhos_para_mesas: Dictionary = {
 		"mesa_coord": [Vector3(-2, 1, -3)],
 			
 		"path": [
+			Vector3(9, 1, -4),
 			Vector3(4, 1, -4),
 			Vector3(4, 1, -5),
 			Vector3(-2, 1, -5),
@@ -84,6 +99,7 @@ var caminhos_para_mesas: Dictionary = {
 		"mesa_coord": [Vector3(2, 1, -4)],
 			
 		"path": [
+			Vector3(9, 1, -4),
 			Vector3(3, 1, -4) #Assento_3_coord
 		],
 		"ocupado": 0,
@@ -93,6 +109,7 @@ var caminhos_para_mesas: Dictionary = {
 		"mesa_coord": [Vector3(-5, 1, -3)],
 			
 		"path": [
+			Vector3(9, 1, -4),
 			Vector3(4, 1, -4),
 			Vector3(4, 1, -3) #Assento_4_coord
 		],
@@ -206,6 +223,74 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity = Vector3.ZERO
 		virar_para_mesa()
+func escolher_pedido():
+	pedido_atual = cardapio[randi() % cardapio.size()]
+	tempo_de_escolha = Timer.new()
+	tempo_de_escolha.one_shot = true
+	tempo_de_escolha.wait_time = (randf_range(segundo_inicial, segundo_final))
+	tempo_de_escolha.timeout.connect(_on_tempo_de_escolha_timeout)
+	add_child(tempo_de_escolha)
+	tempo_de_escolha.start()
+
+func mostrar_pedido():
+	pedido_icon.texture = pedido_atual
+	pedido_icon.visible = true
+	pedido_icon.scale = Vector3(1.6, 1.6, 1.6)
+	
+	tempo_de_espera_atendimento
+	tempo_de_espera_atendimento = Timer.new()
+	tempo_de_espera_atendimento.one_shot = true
+	tempo_de_espera_atendimento.wait_time = tempo_de_espera_pelo_pedido
+	tempo_de_espera_atendimento.timeout.connect(_on_tempo_de_espera_atendimento_timeout)
+	add_child(tempo_de_espera_atendimento)
+	tempo_de_espera_atendimento.start()
+
+
+func pedido_entregue():
+	pass
+
+
+func _on_tempo_de_escolha_timeout():
+	mostrar_pedido()
+
+func _on_tempo_de_espera_atendimento_timeout():
+	print("Cliente não foi atendido")
+	iniciar_saida()
+
+func _on_tempo_de_espera_pela_comida_timeout():
+	print("Cliente não recebeu seu pedido")
+	iniciar_saida()
+	
+func iniciar_saida():
+	pedido_icon.visible = false
+	caminho_selecionado = caminho_selecionado.duplicate()
+	caminho_selecionado.reverse()
+	indice_atual = 0
+	chegou_na_mesa = false
+	estado = "indo_embora"
+
+
+
+func _physics_process(delta: float) -> void:
+	if caminho_selecionado.is_empty() or chegou_na_mesa:
+		return
+		
+	if indice_atual >= caminho_selecionado.size():
+		if estado == "indo_embora":
+			queue_free()
+
+	if indice_atual >= caminho_selecionado.size():
+		velocity = Vector3.ZERO
+		if not chegou_na_mesa and estado == "indo_para_mesa":
+			virar_para_mesa()
+			escolher_pedido()
+			chegou_na_mesa = true
+			print("Chamou uma vez")
+		return
+	
+	var destino = caminho_selecionado[indice_atual]
+	var direction = destino - global_transform.origin
+	direction.y = 0  # manter no plano
 
 		if not pedido_atual:
 			gerar_pedido()
