@@ -1,53 +1,18 @@
 extends CharacterBody3D
 
-'''
-Porta (9, -4)
-	
-Assentos, da esquerda para a direita
-(-5, -2) Assento 1
-(-2, -4) Assento 2
-(1, -4) Assento 3
-(4, -3) Assento 4
-
-Mesas na mesma ordem
-(-5, -3) Mesa 1
-(-2, -3) e (-1, -3) Mesa 2
-(2, -3) e (2, -4) Mesa 3
-(5, -3) Mesa 4
-
-Saindo da porta (9, -4)
-Pathing para o assento 1
-Para (-5, -2) : Caminhar até (4, -4) depois (4, -5) depois (-2, -5) depois (-4, -5) e (-4, -3), 
-Direction (-4, -3) - (-5, -3) = (1, 0) virar para a esquerda 
-
-Pathing para o assento 2
-Para (-2, -4) : Caminhar até (4, -4) depois (4, -5) depois (-2, -5) e (-2, -4)
-Direction (-2, -4) - (-2, -3) = (0, -1) virar para baixo
-
-Pathing para o assento 3
-Para (3, -4) : Caminhar até (3, -4)
-Direction (3, -4) - (2, -4) = (1, 0) virar para esquerda
-
-Pathing para o assento 4
-Para (4, -3) : Caminhar até (4, -4) depois (4, -3)
-Direction (4, -3) - (5, -3) = (-1, 0) virar para direita
-
-(0, 1) seria virar para cima
-'''
+#Porta (9, -4)
 
 @onready var sprite_visual = $NpcSprite3D
 @onready var pedido_icon = $NpcIconPedido
 @onready var NpcArea = $NpcArea
-@export var velocidade := 2.0
 
-@export var velocidade := 1.0
+@export var velocidade := 86
 @export var tempo_de_espera_pelo_atendimento := 4
 @export var tempo_de_espera_pelo_pedido := 6
 
-
 var estado := "indo_para_mesa"
 var caminho_selecionado : Array
-var pedido_atual : Dictionary
+var pedido_atual : Texture
 var indice_atual := 0
 var mesa_selecionada : Vector3
 var spritePedido: Texture2D
@@ -67,6 +32,26 @@ var skins = [
 	#preload("res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente_02.tres")
 ]
 
+var cardapio = [
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/001_coffe.png"), 
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/002_expresso.png"), 
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/17_burger_napkin.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/23_cheesecake_dish.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/27_chocolate_dish.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/35_donut_dish.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/39_friedegg_dish.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/43_eggtart_dish.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/45_frenchfries_dish.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/58_icecream_bowl.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/64_lemonpie_dish.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/87_ramen.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/93_sandwich_dish.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/98_sushi_dish.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_blue.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_green.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_red.png"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_yellow.png")
+	]
 
 var caminhos_para_mesas: Dictionary = {
 	"assento_1": {
@@ -106,7 +91,7 @@ var caminhos_para_mesas: Dictionary = {
 	},
 	
 	"assento_4": {
-		"mesa_coord": [Vector3(-5, 1, -3)],
+		"mesa_coord": [Vector3(5, 1, -3)],
 			
 		"path": [
 			Vector3(9, 1, -4),
@@ -120,7 +105,6 @@ var caminhos_para_mesas: Dictionary = {
 
 func _ready() -> void:
 	global_position = Vector3(9, 1, -4)
-	#gerar_pedido()
 	aplicar_skin_aleatoria()
 	selecionar_mesa()
 	
@@ -164,7 +148,6 @@ func virar_para_mesa():
 		$NpcSprite3D.stop()
 		$NpcSprite3D.frame = 0
 		
-		
 	elif direcao == Vector2.RIGHT:
 		$NpcSprite3D.animation = "walking_right"
 		$NpcSprite3D.stop()
@@ -183,46 +166,7 @@ func virar_para_mesa():
 	else:
 		print("Direção inesperada:", direcao)
 
-		
 #Aleatorizando pedido dentro do vetor do cardapio, no script glogal GameManager
-func gerar_pedido():
-	var keys = FoodData.DATA.keys()
-	randomize()
-	var chosen_key = keys[randi() % keys.size()]
-	var pedido = FoodData.DATA[chosen_key]
-	pedido_atual = pedido
-	spritePedido = pedido_atual["sprite"]
-
-func mostrar_pedido():
-	if pedido_atual:
-		pedido_icon.texture = spritePedido
-		pedido_icon.visible = true
-
-func criar_timer_pedido():
-	var timer_scene = preload("res://scenes/kitchen_minigame/scenes/timergenerator.tscn") # Substitua pelo caminho correto
-	var timer_instance = timer_scene.instantiate()
-	add_child(timer_instance)
-	
-	# Opcional: posicione no NPC ou na mesa
-	timer_instance.global_position = global_position + Vector3(0, 2, 0)
-
-
-func _physics_process(delta: float) -> void:
-	# Se ainda não terminou o caminho
-	if not caminho_selecionado.is_empty() and indice_atual < caminho_selecionado.size():
-		var destino = caminho_selecionado[indice_atual]
-		var direction = destino - global_transform.origin
-		direction.y = 0
-		if direction.length() > 0.1:
-			direction = direction.normalized()
-			velocity = direction * velocidade
-			move_and_slide()
-			# animação (como já estava)
-		else:
-			indice_atual += 1
-	else:
-		velocity = Vector3.ZERO
-		virar_para_mesa()
 func escolher_pedido():
 	pedido_atual = cardapio[randi() % cardapio.size()]
 	tempo_de_escolha = Timer.new()
@@ -237,7 +181,6 @@ func mostrar_pedido():
 	pedido_icon.visible = true
 	pedido_icon.scale = Vector3(1.6, 1.6, 1.6)
 	
-	tempo_de_espera_atendimento
 	tempo_de_espera_atendimento = Timer.new()
 	tempo_de_espera_atendimento.one_shot = true
 	tempo_de_espera_atendimento.wait_time = tempo_de_espera_pelo_pedido
@@ -245,20 +188,24 @@ func mostrar_pedido():
 	add_child(tempo_de_espera_atendimento)
 	tempo_de_espera_atendimento.start()
 
+func _on_tempo_de_escolha_timeout():
+	print("Entrou no tempo de escolha timeout")
+	mostrar_pedido()
 
 func pedido_entregue():
-	pass
-
-
-func _on_tempo_de_escolha_timeout():
-	mostrar_pedido()
+	# Aqui pode fazer animação de agradecimento, som, pontuação etc.
+	satisfeito = true
+	#Marcar mesa como livre
+	iniciar_saida()
 
 func _on_tempo_de_espera_atendimento_timeout():
 	print("Cliente não foi atendido")
+	satisfeito = false
 	iniciar_saida()
 
 func _on_tempo_de_espera_pela_comida_timeout():
 	print("Cliente não recebeu seu pedido")
+	satisfeito = false
 	iniciar_saida()
 	
 func iniciar_saida():
@@ -268,8 +215,6 @@ func iniciar_saida():
 	indice_atual = 0
 	chegou_na_mesa = false
 	estado = "indo_embora"
-
-
 
 func _physics_process(delta: float) -> void:
 	if caminho_selecionado.is_empty() or chegou_na_mesa:
@@ -292,18 +237,23 @@ func _physics_process(delta: float) -> void:
 	var direction = destino - global_transform.origin
 	direction.y = 0  # manter no plano
 
-		if not pedido_atual:
-			gerar_pedido()
-			mostrar_pedido()
-			criar_timer_pedido()
-
-func entregar_pedido():
-	# Aqui pode fazer animação de agradecimento, som, pontuação etc.
-	# Esconde ícone do pedido
-	pedido_icon.visible = false
-	satisfeito= true
-	# Libera a mesa (se você rastreia ocupação em outro sistema, faça aqui também)
-	# Exemplo: marcar mesa como livre (se tiver controle centralizado de mesas)
-	
-	# Remove NPC
-	queue_free()
+	#Direção que o npc anda
+	if direction.length() > 0.1:
+		direction = direction.normalized()
+		velocity = direction * velocidade * delta
+		move_and_slide()
+		
+		# Atualiza animação com base na direção
+		if abs(direction.x) > abs(direction.z):
+			if direction.x > 0:
+				$NpcSprite3D.play("walking_right")
+			else:
+				$NpcSprite3D.play("walking_left")
+		else:
+			if direction.z > 0:
+				$NpcSprite3D.play("walking_down")
+			else:
+				$NpcSprite3D.play("walking_up")
+				
+	else:
+		indice_atual += 1

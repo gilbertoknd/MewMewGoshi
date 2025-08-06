@@ -1,0 +1,119 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkygnnlk5dngs"]
+
+[ext_resource type="Script" uid="uid://3h1p3qdhqfmg" path="res://scenes/kitchen_minigame/scripts/main_menu.gd" id="1_q6nnn"]
+[ext_resource type="FontFile" uid="uid://b7ovglptksxpf" path="res://scenes/kitchen_minigame/assets/fonts/Cherry_Swash/CherrySwash-Bold.ttf" id="2_4wi4s"]
+[ext_resource type="Texture2D" uid="uid://dido846agqhxq" path="res://scenes/kitchen_minigame/assets/sprites/MewMewBG.jpg" id="2_uj16f"]
+[ext_resource type="StyleBox" uid="uid://557gm6480vy7" path="res://scenes/kitchen_minigame/assets/EstiloBotaoMenu.tres" id="4_0yxd3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0yxd3"]
+resource_name = "EstiloBotao"
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.814283, 0.533134, 0.790958, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_blend = true
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sj2md"]
+resource_name = "EstiloBotao"
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.814283, 0.533134, 0.790958, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_blend = true
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q6nnn")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_uj16f")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(576, 324)
+
+[node name="VBoxContainerExterno" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 80
+
+[node name="TituloDoJogo" type="Label" parent="CenterContainer/VBoxContainerExterno"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.811739, 0.0970456, 0.587651, 1)
+theme_override_colors/font_outline_color = Color(0.831337, 0.491048, 0.673674, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_4wi4s")
+theme_override_font_sizes/font_size = 48
+text = "Mew Mew Maid Cafe"
+
+[node name="VBoxContainerInterno" type="VBoxContainer" parent="CenterContainer/VBoxContainerExterno"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="JogarButton" type="Button" parent="CenterContainer/VBoxContainerExterno/VBoxContainerInterno"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/disabled = ExtResource("4_0yxd3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0yxd3")
+theme_override_styles/pressed = ExtResource("4_0yxd3")
+theme_override_styles/normal = ExtResource("4_0yxd3")
+text = "Jogar"
+
+[node name="SairButton" type="Button" parent="CenterContainer/VBoxContainerExterno/VBoxContainerInterno"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/disabled = ExtResource("4_0yxd3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sj2md")
+theme_override_styles/pressed = ExtResource("4_0yxd3")
+theme_override_styles/normal = ExtResource("4_0yxd3")
+text = "Sair"
+
+[node name="Devs" type="Label" parent="."]
+layout_mode = 2
+offset_left = 384.0
+offset_top = 624.0
+offset_right = 768.0
+offset_bottom = 647.0
+text = "Desenvolvido por João Maria e Gilberto Rodrigues."
+horizontal_alignment = 1
+vertical_alignment = 2

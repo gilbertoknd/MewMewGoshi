@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" uid="uid://blrxhcvja4eau" path="res://scenes/kitchen_minigame/scripts/npc_cliente.gd" id="1_01fmr"]
 [ext_resource type="SpriteFrames" uid="uid://bmq4nnwhmj7jm" path="res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente_01.tres" id="2_kgeto"]
+[ext_resource type="Texture2D" uid="uid://si6obxxxsdru" path="res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_yellow.png" id="3_5gka5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vx8i"]
 radius = 0.345
 height = 0.7
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_885gl"]
-
-[node name="NpcCliente" type="CharacterBody3D" groups=["npc"]]
+[node name="NpcCliente" type="CharacterBody3D"]
 script = ExtResource("1_01fmr")
 
 [node name="NpcSprite3D" type="AnimatedSprite3D" parent="."]
@@ -23,19 +22,6 @@ animation = &"walking_down"
 shape = SubResource("CapsuleShape3D_3vx8i")
 
 [node name="NpcIconPedido" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.31313, 0)
-pixel_size = 0.02
-billboard = 1
-texture_filter = 0
-
-[node name="NpcArea" type="Area3D" parent="." groups=["npc"]]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NpcArea"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-shape = SubResource("BoxShape3D_885gl")
-debug_color = Color(0.681982, 0.470209, 0.487829, 0.42)
-
-[connection signal="area_entered" from="NpcArea" to="." method="_on_npc_area_area_entered"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, 0)
 visible = false
 billboard = 1
