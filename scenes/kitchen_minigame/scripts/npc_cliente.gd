@@ -36,78 +36,6 @@ var skins = [
 	#preload("res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente_02.tres")
 ]
 
-
-#var cardapio = [
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/001_coffe.png"), 
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/002_expresso.png"), 
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/17_burger_napkin.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/23_cheesecake_dish.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/27_chocolate_dish.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/35_donut_dish.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/39_friedegg_dish.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/43_eggtart_dish.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/45_frenchfries_dish.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/58_icecream_bowl.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/64_lemonpie_dish.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/87_ramen.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/93_sandwich_dish.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/98_sushi_dish.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_blue.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_green.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_red.png"),
-	#preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_yellow.png")
-	#]
-
-var caminhos_para_mesas: Dictionary = {
-	"assento_1": {
-		"mesa_coord": [Vector3(-5, 1, -3)],
-			
-		"path": [
-			Vector3(9, 1, -4),
-			Vector3(4, 1, -4),
-			Vector3(4, 1, -5),
-			Vector3(-2, 1, -5),
-			Vector3(-4, 1, -5),
-			Vector3(-4, 1, -3) #Assento_1_coord
-		],
-		"ocupado": 0,
-	},
-	"assento_2": {
-		"mesa_coord": [Vector3(-2, 1, -3)],
-			
-		"path": [
-			Vector3(9, 1, -4),
-			Vector3(4, 1, -4),
-			Vector3(4, 1, -5),
-			Vector3(-2, 1, -5),
-			Vector3(-2, 1, -4) #Assento_2_coord
-		],
-		"ocupado": 0,
-	},
-	
-	"assento_3": {
-		"mesa_coord": [Vector3(2, 1, -4)],
-			
-		"path": [
-			Vector3(9, 1, -4),
-			Vector3(3, 1, -4) #Assento_3_coord
-		],
-		"ocupado": 0,
-	},
-	
-	"assento_4": {
-		"mesa_coord": [Vector3(5, 1, -3)],
-			
-		"path": [
-			Vector3(9, 1, -4),
-			Vector3(4, 1, -4),
-			Vector3(4, 1, -3) #Assento_4_coord
-		],
-		"ocupado": 0,
-	}
-}
-
-
 func _ready() -> void:
 	global_position = Vector3(9, 1, -4)
 	aplicar_skin_aleatoria()
@@ -122,17 +50,17 @@ func selecionar_mesa():
 	var livres: Array = []
 
 	#Procurando assentos livres
-	for destino in caminhos_para_mesas:
-		var assento = caminhos_para_mesas[destino]
+	for destino in MesaData.paths:
+		var assento = MesaData.paths[destino]
 		if assento["ocupado"] == 0:
 			livres.append(destino)
 	#
 	if not livres.is_empty():
 		randomize()
 		var escolha = livres[randi() % livres.size()]
-		caminho_selecionado = caminhos_para_mesas[escolha]["path"]
-		caminhos_para_mesas[escolha]["ocupado"] = 1
-		mesa_selecionada = caminhos_para_mesas[escolha]["mesa_coord"][0]
+		caminho_selecionado = MesaData.paths[escolha]["path"]
+		MesaData.paths[escolha]["ocupado"] = 1
+		mesa_selecionada = MesaData.paths[escolha]["mesa_coord"][0]
 
 func virar_para_mesa():
 	if caminho_selecionado.is_empty():

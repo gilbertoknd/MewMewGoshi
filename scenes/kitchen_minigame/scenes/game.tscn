@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ca62jokaqvuk5"]
+[gd_scene load_steps=11 format=3 uid="uid://ca62jokaqvuk5"]
 
 [ext_resource type="PackedScene" uid="uid://cjgjgowfj7h5v" path="res://scenes/kitchen_minigame/scenes/base_map.tscn" id="1_1c3x3"]
 [ext_resource type="PackedScene" uid="uid://bbl271wxdnu5u" path="res://scenes/kitchen_minigame/scenes/3dDeco/light.tscn" id="1_rnyj2"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://b6vchbtlwo466" path="res://scenes/kitchen_minigame/scenes/food_generator.tscn" id="6_rnyj2"]
 [ext_resource type="PackedScene" uid="uid://dmbfyf0qrjy6g" path="res://scenes/kitchen_minigame/scenes/3dDeco/converyerbelt.tscn" id="7_yinvk"]
 [ext_resource type="PackedScene" uid="uid://d28ohkda67xvi" path="res://scenes/kitchen_minigame/scenes/moving_food.tscn" id="8_fripu"]
+[ext_resource type="PackedScene" uid="uid://cjhr75j2rulie" path="res://scenes/kitchen_minigame/scenes/HUD.tscn" id="9_neytw"]
+[ext_resource type="PackedScene" uid="uid://qfm4tg6sajmi" path="res://scenes/kitchen_minigame/scenes/npc_spawner.tscn" id="10_yxcvw"]
 
 [node name="game" type="Node3D"]
 
@@ -129,3 +131,7 @@ frame_progress = 0.719858
 
 [node name="Moving food" parent="." instance=ExtResource("8_fripu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90799, 1.16219, 3.8806)
+
+[node name="Hud" parent="." instance=ExtResource("9_neytw")]
+
+[node name="NpcSpawner" parent="." instance=ExtResource("10_yxcvw")]

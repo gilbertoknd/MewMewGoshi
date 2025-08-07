@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://qfm4tg6sajmi"]
+
+[ext_resource type="Script" uid="uid://d4db8afh64ms6" path="res://scenes/kitchen_minigame/scripts/npc_spawner.gd" id="1_0xlmk"]
+
+[node name="NpcSpawner" type="Node"]
+script = ExtResource("1_0xlmk")

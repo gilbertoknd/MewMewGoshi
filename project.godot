@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GlobalM1="*res://scenes/kitchen_minigame/scripts/globals/Global_M1.gd"
 Foodadata="*res://scenes/kitchen_minigame/scripts/food_data.gd"
+MesaData="*res://scenes/kitchen_minigame/scripts/mesa_data.gd"
 
 [global_group]
 

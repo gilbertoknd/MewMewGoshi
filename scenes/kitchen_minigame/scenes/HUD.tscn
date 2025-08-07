@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://cjhr75j2rulie"]
+
+[ext_resource type="Script" uid="uid://bmyok4yyhehij" path="res://scenes/kitchen_minigame/scripts/hud.gd" id="1_uqrj0"]
+[ext_resource type="StyleBox" uid="uid://557gm6480vy7" path="res://scenes/kitchen_minigame/assets/EstiloBotaoMenu.tres" id="2_05lsn"]
+[ext_resource type="FontFile" uid="uid://b7ovglptksxpf" path="res://scenes/kitchen_minigame/assets/fonts/Cherry_Swash/CherrySwash-Bold.ttf" id="3_7q7wv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7hsmw"]
+font = ExtResource("3_7q7wv")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_nysna"]
+font = ExtResource("3_7q7wv")
+font_size = 20
+
+[node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_uqrj0")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ScoreLabel" type="Label" parent="UI"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 190.0
+offset_bottom = 100.0
+theme_override_styles/normal = ExtResource("2_05lsn")
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_7hsmw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -190.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 100.0
+grow_horizontal = 0
+theme_override_styles/normal = ExtResource("2_05lsn")
+text = "Tempo restante:
+05:00"
+label_settings = SubResource("LabelSettings_nysna")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CountdownTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="CountdownTimer" to="." method="_on_countdown_timer_timeout"]
