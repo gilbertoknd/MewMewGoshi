@@ -10,10 +10,13 @@ func _ready():
 	progress_bar.max_value = total_time
 	progress_bar.value = total_time
 
+signal timeout
+
 func _process(delta):
 	if time_left > 0.0:
 		time_left -= delta
 		progress_bar.value = time_left
 	else:
 		progress_bar.value = 0
-		queue_free()  # ou hide()
+		emit_signal("timeout")
+		queue_free()

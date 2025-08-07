@@ -65,21 +65,32 @@ func _physics_process(delta: float) -> void:
 func checar_entrega_pedido() -> void:
 	for area in playerArea.get_overlapping_areas():
 		if area.is_in_group("npc"):
-			# Supondo que o NPC tem script com pedido_atual
-			var npc_node = area.get_parent()  # ou area se for o nó principal do NPC
-			if npc_node.has_method("pedido_atual") or npc_node.get("pedido_atual"):
-				var npc_pedido = npc_node.pedido_atual
-				if npc_pedido == null:
-					continue  # NPC sem pedido ainda
+			var npc_node = area.get_parent()
+			if not npc_node or not ("pedido_nome" in npc_node):
+				continue  # NPC ainda sem pedido
 
-				if is_holding and GlobalM1.currently_being_hold_food and npc_pedido["name"] == GlobalM1.currently_being_hold_food.name:
-					print("Pedido correto entregue para NPC: ", npc_node.name)
-					# Chamar método do NPC para entregar pedido
-					if npc_node.has_method("entregar_pedido"):
-						npc_node.entregar_pedido()
+			var npc_pedido_nome = npc_node.pedido_nome
+			var food_inst = GlobalM1.currently_being_hold_food
 
-					# Limpar pedido do player
-					is_holding = false
-					GlobalM1.currently_being_hold_food = null
-					foodSprite.texture = null
-					break  # entregou, sai do loop
+			if is_holding and food_inst and food_inst.name == npc_pedido_nome:
+				print("Pedido correto entregue para NPC:", npc_node.name)
+
+				# Somar pontos com base no preço
+				if FoodData.get_food_by_name(npc_pedido_nome):
+					var food_info = FoodData.get_food_by_name(npc_pedido_nome)
+					GlobalM1.total_points += food_info.get("base_price", 0)
+					print("Pontos adicionados:", food_info.get("base_price", 0))
+					print(GlobalM1.total_points ," pontos atuais")
+				else:
+					var food_info = FoodData.get_food_by_name(npc_pedido_nome)
+					print("Erro: comida", food_info.get("name"), "não encontrada em FoodData")
+					
+
+				# Entregar o pedido
+				if npc_node.has_method("pedido_entregue"):
+					npc_node.pedido_entregue()
+
+				is_holding = false
+				GlobalM1.currently_being_hold_food = null
+				foodSprite.texture = null
+				break

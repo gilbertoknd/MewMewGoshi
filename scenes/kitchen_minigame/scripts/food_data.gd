@@ -33,3 +33,10 @@ const DATA = {
 		"sprite": preload("res://scenes/kitchen_minigame/assets/sprites/food/45_frenchfries_dish.png"),
 	},
 	}
+	
+static func get_food_by_name(food_name: String) -> Dictionary:
+	for key in DATA:
+		var item = DATA[key]
+		if item.get("name", "") == food_name:
+			return item
+	return {}

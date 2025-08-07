@@ -7,12 +7,14 @@ extends CharacterBody3D
 @onready var NpcArea = $NpcArea
 
 @export var velocidade := 86
-@export var tempo_de_espera_pelo_atendimento := 4
-@export var tempo_de_espera_pelo_pedido := 6
+@export var tempo_de_espera_pelo_atendimento := 2
+@export var tempo_de_espera_pelo_pedido := 20
 
 var estado := "indo_para_mesa"
 var caminho_selecionado : Array
-var pedido_atual : Texture
+var pedido_texture : Texture 
+var pedido_nome : String
+
 var indice_atual := 0
 var mesa_selecionada : Vector3
 var spritePedido: Texture2D
@@ -26,32 +28,35 @@ var tempo_de_espera_pela_comida: Timer
 var segundo_inicial = 2
 var segundo_final = 6
 
+@onready var cardapio = FoodData.DATA
+
 #Skins aleatorias para os clientes, salvar em .tres para usar as animacoes
 var skins = [
 	preload("res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente_01.tres")
 	#preload("res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente_02.tres")
 ]
 
-var cardapio = [
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/001_coffe.png"), 
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/002_expresso.png"), 
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/17_burger_napkin.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/23_cheesecake_dish.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/27_chocolate_dish.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/35_donut_dish.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/39_friedegg_dish.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/43_eggtart_dish.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/45_frenchfries_dish.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/58_icecream_bowl.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/64_lemonpie_dish.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/87_ramen.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/93_sandwich_dish.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/98_sushi_dish.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_blue.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_green.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_red.png"),
-	preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_yellow.png")
-	]
+
+#var cardapio = [
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/001_coffe.png"), 
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/002_expresso.png"), 
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/17_burger_napkin.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/23_cheesecake_dish.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/27_chocolate_dish.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/35_donut_dish.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/39_friedegg_dish.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/43_eggtart_dish.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/45_frenchfries_dish.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/58_icecream_bowl.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/64_lemonpie_dish.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/87_ramen.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/93_sandwich_dish.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/98_sushi_dish.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_blue.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_green.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_red.png"),
+	#preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_yellow.png")
+	#]
 
 var caminhos_para_mesas: Dictionary = {
 	"assento_1": {
@@ -168,25 +173,34 @@ func virar_para_mesa():
 
 #Aleatorizando pedido dentro do vetor do cardapio, no script glogal GameManager
 func escolher_pedido():
-	pedido_atual = cardapio[randi() % cardapio.size()]
+	var chaves = cardapio.keys()
+	var chave_aleatoria = chaves[randi() % chaves.size()]
+	var food = cardapio[chave_aleatoria]
+	
+	pedido_texture = food["sprite"]  # <- Agora usa pedido_texture
+	pedido_nome = food["name"]       # <- Nome do pedido atual
+	
 	tempo_de_escolha = Timer.new()
 	tempo_de_escolha.one_shot = true
-	tempo_de_escolha.wait_time = (randf_range(segundo_inicial, segundo_final))
+	tempo_de_escolha.wait_time = randf_range(segundo_inicial, segundo_final)
 	tempo_de_escolha.timeout.connect(_on_tempo_de_escolha_timeout)
 	add_child(tempo_de_escolha)
 	tempo_de_escolha.start()
 
+
 func mostrar_pedido():
-	pedido_icon.texture = pedido_atual
+	pedido_icon.texture = pedido_texture 
 	pedido_icon.visible = true
 	pedido_icon.scale = Vector3(1.6, 1.6, 1.6)
-	
-	tempo_de_espera_atendimento = Timer.new()
-	tempo_de_espera_atendimento.one_shot = true
-	tempo_de_espera_atendimento.wait_time = tempo_de_espera_pelo_pedido
-	tempo_de_espera_atendimento.timeout.connect(_on_tempo_de_espera_atendimento_timeout)
-	add_child(tempo_de_espera_atendimento)
-	tempo_de_espera_atendimento.start()
+
+	# Instanciando TimerGenerator
+	var timer_generator_scene = preload("res://scenes/kitchen_minigame/scenes/timergenerator.tscn")
+	var timer_generator = timer_generator_scene.instantiate()
+	timer_generator.total_time = tempo_de_espera_pelo_pedido
+	pedido_icon.add_child(timer_generator)
+
+	# Conectar sinal que deve ser emitido no TimerGenerator (você terá que criar)
+	timer_generator.connect("timeout", Callable(self, "_on_tempo_de_espera_atendimento_timeout"))
 
 func _on_tempo_de_escolha_timeout():
 	print("Entrou no tempo de escolha timeout")
