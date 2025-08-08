@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dkygnnlk5dngs"]
+[gd_scene load_steps=13 format=3 uid="uid://dkygnnlk5dngs"]
 
 [ext_resource type="Script" uid="uid://3h1p3qdhqfmg" path="res://scenes/kitchen_minigame/scripts/main_menu.gd" id="1_q6nnn"]
 [ext_resource type="Texture2D" uid="uid://byfr2gfnoscab" path="res://scenes/kitchen_minigame/assets/sprites/menuover.png" id="2_0yxd3"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bb6sav83m0k1t" path="res://scenes/kitchen_minigame/assets/sprites/Pattern.png" id="3_lyw1t"]
 [ext_resource type="StyleBox" uid="uid://557gm6480vy7" path="res://scenes/kitchen_minigame/assets/EstiloBotaoMenu.tres" id="4_0yxd3"]
 [ext_resource type="Texture2D" uid="uid://d1ux7nrdvt72x" path="res://scenes/kitchen_minigame/assets/sprites/ICON.png" id="7_lyw1t"]
+[ext_resource type="AudioStream" uid="uid://cmvxbpsl6wck" path="res://scenes/kitchen_minigame/assets/selectedSFX/unbound-space-ST.wav" id="8_mhnqf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mhnqf"]
 shader = ExtResource("2_aj418")
@@ -161,3 +162,7 @@ text = "Desenvolvido por João Maria e Gilberto Rodrigues."
 label_settings = SubResource("LabelSettings_aj418")
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[node name="MainMenuSoundTrack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_mhnqf")
+autoplay = true

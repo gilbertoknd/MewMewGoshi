@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://cjgjgowfj7h5v" path="res://scenes/kitchen_minigame/scenes/base_map.tscn" id="1_1c3x3"]
 [ext_resource type="PackedScene" uid="uid://bbl271wxdnu5u" path="res://scenes/kitchen_minigame/scenes/3dDeco/light.tscn" id="1_rnyj2"]
 [ext_resource type="PackedScene" uid="uid://6tn6w2ag2hdn" path="res://scenes/kitchen_minigame/scenes/player.tscn" id="2_tlw38"]
-[ext_resource type="PackedScene" uid="uid://chw2og4pcnql1" path="res://scenes/kitchen_minigame/scenes/npc_cliente.tscn" id="4_pf8re"]
 [ext_resource type="PackedScene" uid="uid://b6vchbtlwo466" path="res://scenes/kitchen_minigame/scenes/food_generator.tscn" id="6_rnyj2"]
 [ext_resource type="PackedScene" uid="uid://dmbfyf0qrjy6g" path="res://scenes/kitchen_minigame/scenes/3dDeco/converyerbelt.tscn" id="7_yinvk"]
+[ext_resource type="AudioStream" uid="uid://cmvxbpsl6wck" path="res://scenes/kitchen_minigame/assets/selectedSFX/unbound-space-ST.wav" id="8_fripu"]
 [ext_resource type="PackedScene" uid="uid://cjhr75j2rulie" path="res://scenes/kitchen_minigame/scenes/HUD.tscn" id="9_neytw"]
 [ext_resource type="PackedScene" uid="uid://qfm4tg6sajmi" path="res://scenes/kitchen_minigame/scenes/npc_spawner.tscn" id="10_yxcvw"]
 
@@ -30,8 +30,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("2_tlw38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.405737, 0.72679, 3.24351)
-
-[node name="NpcCliente" parent="." instance=ExtResource("4_pf8re")]
 
 [node name="Food_Generator" parent="." instance=ExtResource("6_rnyj2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.46667, 1.47875, 6.52357)
@@ -127,3 +125,7 @@ frame_progress = 0.719858
 [node name="CollisionShape3D" type="CollisionShape3D" parent="wall exit"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.88728, 1.17865, -3.25975)
 shape = SubResource("BoxShape3D_fripu")
+
+[node name="GameplaySoundTrack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_fripu")
+autoplay = true

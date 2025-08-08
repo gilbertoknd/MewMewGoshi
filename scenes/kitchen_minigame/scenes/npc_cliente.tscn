@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://chw2og4pcnql1"]
 
 [ext_resource type="Script" uid="uid://blrxhcvja4eau" path="res://scenes/kitchen_minigame/scripts/npc_cliente.gd" id="1_01fmr"]
-[ext_resource type="SpriteFrames" uid="uid://bmq4nnwhmj7jm" path="res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente_01.tres" id="2_kgeto"]
+[ext_resource type="SpriteFrames" uid="uid://bmq4nnwhmj7jm" path="res://scenes/kitchen_minigame/assets/sprites/clientes/npc_tres/npc_cliente_01.tres" id="2_kgeto"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vx8i"]
 radius = 0.345
@@ -21,6 +21,7 @@ animation = &"walking_down"
 
 [node name="NpcCollisionShape3d" type="CollisionShape3D" parent="." groups=["npc"]]
 shape = SubResource("CapsuleShape3D_3vx8i")
+disabled = true
 
 [node name="NpcIconPedido" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, 0)

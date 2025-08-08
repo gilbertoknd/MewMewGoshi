@@ -28,23 +28,26 @@ var tempo_de_espera_pela_comida: Timer
 var segundo_inicial = 2
 var segundo_final = 6
 
+var escolha_mesa = ""
 @onready var cardapio = FoodData.DATA
 
 #Skins aleatorias para os clientes, salvar em .tres para usar as animacoes
 var skins = [
-	preload("res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente_01.tres")
-	#preload("res://scenes/kitchen_minigame/assets/sprites/clientes/npc_cliente_02.tres")
+	preload("res://scenes/kitchen_minigame/assets/sprites/clientes/npc_tres/npc_cliente_01.tres"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/clientes/npc_tres/npc_cliente_02.tres"),
+	preload("res://scenes/kitchen_minigame/assets/sprites/clientes/npc_tres/npc_cliente_03.tres")
 ]
 
 func _ready() -> void:
-	global_position = Vector3(9, 1, -4)
+	#global_position = Vector3(9, 1, -4)
 	aplicar_skin_aleatoria()
 	selecionar_mesa()
 	
 #Aleatorizando skin para o cliente	
 func aplicar_skin_aleatoria():
-	var skin_path = skins[randi() % skins.size()]
-	sprite_visual = skin_path
+	var skin_resource = skins[randi() % skins.size()]
+	sprite_visual.frames = skin_resource
+	
 	
 func selecionar_mesa():
 	var livres: Array = []
@@ -57,10 +60,10 @@ func selecionar_mesa():
 	#
 	if not livres.is_empty():
 		randomize()
-		var escolha = livres[randi() % livres.size()]
-		caminho_selecionado = MesaData.paths[escolha]["path"]
-		MesaData.paths[escolha]["ocupado"] = 1
-		mesa_selecionada = MesaData.paths[escolha]["mesa_coord"][0]
+		escolha_mesa = livres[randi() % livres.size()]
+		caminho_selecionado = MesaData.paths[escolha_mesa]["path"]
+		MesaData.paths[escolha_mesa]["ocupado"] = 1
+		mesa_selecionada = MesaData.paths[escolha_mesa]["mesa_coord"][0]
 
 func virar_para_mesa():
 	if caminho_selecionado.is_empty():
@@ -157,6 +160,7 @@ func iniciar_saida():
 	indice_atual = 0
 	chegou_na_mesa = false
 	estado = "indo_embora"
+	MesaData.paths[escolha_mesa]["ocupado"] = 0
 
 func _physics_process(delta: float) -> void:
 	if caminho_selecionado.is_empty() or chegou_na_mesa:

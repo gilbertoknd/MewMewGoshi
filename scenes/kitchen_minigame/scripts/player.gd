@@ -11,6 +11,13 @@ const JUMP_VELOCITY = 4.5
 @export var frame :=1
 @export_enum("up", "left", "right", "down") var facing := "down"
 
+#Audios
+@onready var som_passos = $Sounds/SomPassos
+@onready var som_pegar_comida = $Sounds/SomPegarComida  
+@onready var som_tempo_acabando = $Sounds/SomTempoAcabando
+@onready var som_entregar_comida = $Sounds/SomEntregarComida
+
+var andando = false
 
 func _ready():
 	add_to_group("player")
@@ -24,6 +31,9 @@ func _physics_process(delta: float) -> void:
 				if moving_food.has_method("get_food_instance"):
 					var food_instance = moving_food.get_food_instance()
 					
+					if not som_pegar_comida.is_playing():
+						som_pegar_comida.play()
+						
 					GlobalM1.currently_being_hold_food = food_instance
 					foodSprite.texture = food_instance.sprite
 					is_holding = true
@@ -43,8 +53,14 @@ func _physics_process(delta: float) -> void:
 		velocity.z = direction.z * SPEED
 		if abs(direction.x) > abs(direction.z):
 			facing = "right" if direction.x > 0.1 else "left"
+			if not som_passos.is_playing():
+				som_passos.play()
+
 		else:
 			facing = "down" if direction.z > 0.1 else "up"
+			if not som_passos.is_playing():
+				som_passos.play()
+
 		var anim_name = "walking_" + facing
 		if is_holding:
 			anim_name = "holding_" + facing
@@ -58,10 +74,22 @@ func _physics_process(delta: float) -> void:
 	checar_entrega_pedido()
 	move_and_slide()
 	
+	#var esta_andando = direction.length() > 0
+	#if esta_andando and not andando:
+	#	som_passos.play()   # começa o loop quando começa a andar
+	#elif not esta_andando and andando:
+	#	som_passos.stop()   # para o som quando para de andar
+	#andando = esta_andando
+	
+	
 func checar_entrega_pedido() -> void:
 	for area in playerArea.get_overlapping_areas():
 		if area.is_in_group("npc"):
 			var npc_node = area.get_parent()
+			
+			if "estado" in npc_node and npc_node.estado == "indo_embora":
+				continue
+			
 			if not npc_node or not ("pedido_nome" in npc_node):
 				continue  # NPC ainda sem pedido
 
@@ -85,6 +113,8 @@ func checar_entrega_pedido() -> void:
 				# Entregar o pedido
 				if npc_node.has_method("pedido_entregue"):
 					npc_node.pedido_entregue()
+					if not som_entregar_comida.is_playing():
+						som_entregar_comida.play()
 
 				is_holding = false
 				GlobalM1.currently_being_hold_food = null

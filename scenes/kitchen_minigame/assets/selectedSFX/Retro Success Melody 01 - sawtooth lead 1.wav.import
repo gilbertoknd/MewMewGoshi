@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dd51lfumu7ciw"
+path="res://.godot/imported/Retro Success Melody 01 - sawtooth lead 1.wav-e2d03560bc75120a25c614d80358b0d4.sample"
+
+[deps]
+
+source_file="res://scenes/kitchen_minigame/assets/selectedSFX/Retro Success Melody 01 - sawtooth lead 1.wav"
+dest_files=["res://.godot/imported/Retro Success Melody 01 - sawtooth lead 1.wav-e2d03560bc75120a25c614d80358b0d4.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
