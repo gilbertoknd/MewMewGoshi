@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://s6j2xqicpb66"]
+
+[ext_resource type="Script" uid="uid://cuna8pvhmtwqw" path="res://scenes/kitchen_minigame/scripts/static_food.gd" id="1_uchcj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uchcj"]
+
+[node name="StaticFood" type="Node3D" groups=["static_food"]]
+script = ExtResource("1_uchcj")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.05
+billboard = 1
+texture_filter = 0
+
+[node name="Area3D" type="Area3D" parent="Sprite3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Area3D"]
+transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, 0, 0, 0)
+shape = SubResource("BoxShape3D_uchcj")
+debug_color = Color(0.760594, 0.445633, 0.201517, 0.745098)

@@ -32,6 +32,24 @@ const DATA = {
 		"base_price": 10,
 		"sprite": preload("res://scenes/kitchen_minigame/assets/sprites/food/45_frenchfries_dish.png"),
 	},
+	"DRINKRED": {
+		"name": "Bebida Vermelha",
+		"spawn_weight": 20,
+		"base_price": 10,
+		"sprite": preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_red.png"),
+	},
+	"DRINKBLUE": {
+		"name": "Bebida Azul",
+		"spawn_weight": 20,
+		"base_price": 10,
+		"sprite": preload("res://scenes/kitchen_minigame/assets/sprites/food/soft_drink_blue.png"),
+	},
+	"PANNACAT": {
+		"name": "Panna Cat",
+		"spawn_weight": 20,
+		"base_price": 30,
+		"sprite": preload("res://scenes/kitchen_minigame/assets/sprites/food/Panna Cat.png"),
+	},
 	}
 	
 static func get_food_by_name(food_name: String) -> Dictionary:

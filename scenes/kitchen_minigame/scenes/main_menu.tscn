@@ -1,9 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://dkygnnlk5dngs"]
+[gd_scene load_steps=12 format=3 uid="uid://dkygnnlk5dngs"]
 
 [ext_resource type="Script" uid="uid://3h1p3qdhqfmg" path="res://scenes/kitchen_minigame/scripts/main_menu.gd" id="1_q6nnn"]
+[ext_resource type="Texture2D" uid="uid://byfr2gfnoscab" path="res://scenes/kitchen_minigame/assets/sprites/menuover.png" id="2_0yxd3"]
 [ext_resource type="FontFile" uid="uid://b7ovglptksxpf" path="res://scenes/kitchen_minigame/assets/fonts/Cherry_Swash/CherrySwash-Bold.ttf" id="2_4wi4s"]
-[ext_resource type="Texture2D" uid="uid://dido846agqhxq" path="res://scenes/kitchen_minigame/assets/sprites/MewMewBG.jpg" id="2_uj16f"]
+[ext_resource type="Shader" uid="uid://k410f5mv2hvv" path="res://scenes/kitchen_minigame/scripts/shader/main_menu.gdshader" id="2_aj418"]
+[ext_resource type="Texture2D" uid="uid://bb6sav83m0k1t" path="res://scenes/kitchen_minigame/assets/sprites/Pattern.png" id="3_lyw1t"]
 [ext_resource type="StyleBox" uid="uid://557gm6480vy7" path="res://scenes/kitchen_minigame/assets/EstiloBotaoMenu.tres" id="4_0yxd3"]
+[ext_resource type="Texture2D" uid="uid://d1ux7nrdvt72x" path="res://scenes/kitchen_minigame/assets/sprites/ICON.png" id="7_lyw1t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mhnqf"]
+shader = ExtResource("2_aj418")
+shader_parameter/pattern = ExtResource("3_lyw1t")
+shader_parameter/speed = 0.65
+shader_parameter/direction = Vector2(1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0yxd3"]
 resource_name = "EstiloBotao"
@@ -43,6 +52,11 @@ expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_aj418"]
+font = ExtResource("2_4wi4s")
+font_size = 20
+font_color = Color(0.835294, 0.478431, 0.72549, 1)
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -52,20 +66,48 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_q6nnn")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="BG" type="TextureRect" parent="."]
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_mhnqf")
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+scale = Vector2(1, 0.995831)
+texture = ExtResource("3_lyw1t")
+stretch_mode = 1
+
+[node name="CARACTHER" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 640.0
+offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_uj16f")
+scale = Vector2(0.667, 0.667)
+texture = ExtResource("2_0yxd3")
+
+[node name="TITLE" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 2
+offset_left = 77.0
+offset_top = 99.0
+offset_right = 1095.0
+offset_bottom = 512.0
+scale = Vector2(0.48, 0.48)
+texture = ExtResource("7_lyw1t")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -321.0
+offset_top = 26.0
+offset_right = -321.0
+offset_bottom = 26.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(576, 324)
@@ -75,6 +117,7 @@ layout_mode = 2
 theme_override_constants/separation = 80
 
 [node name="TituloDoJogo" type="Label" parent="CenterContainer/VBoxContainerExterno"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.811739, 0.0970456, 0.587651, 1)
 theme_override_colors/font_outline_color = Color(0.831337, 0.491048, 0.673674, 1)
@@ -110,10 +153,11 @@ text = "Sair"
 
 [node name="Devs" type="Label" parent="."]
 layout_mode = 2
-offset_left = 384.0
-offset_top = 624.0
-offset_right = 768.0
-offset_bottom = 647.0
+offset_left = 17.0
+offset_top = 682.0
+offset_right = 423.0
+offset_bottom = 705.0
 text = "Desenvolvido por João Maria e Gilberto Rodrigues."
+label_settings = SubResource("LabelSettings_aj418")
 horizontal_alignment = 1
 vertical_alignment = 2
